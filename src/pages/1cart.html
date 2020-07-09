@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <style>
+        #box{width: 1000px;border: solid 1px black;margin: 20px auto;overflow: hidden;}
+        #box .list{width: 250px;border: solid 1px black;box-sizing: border-box;float: left;text-align: center;}
+        .list p{margin: 0;line-height: 20px;height: 40px;overflow: hidden;margin: 6px 0;}
+        .list img{width: 80%;}
+        .list span{display: block;}
+        .list em{display: block;width: 110px;height: 40px;line-height: 40px;text-align: center;margin: 0 auto;font-style: normal;background: #ccc;cursor: pointer;}
+        .list em:active{background: #33f;color: #fff;}
+    </style>
+</head>
+<body>
+    <h2>全部商品<a href="http://localhost/wangyi78/7goods-car.html">去结算</a></h2>
+    <div id="box">
+        <div class="list" index='234244'>
+            <img src="./new.jpg/手机1.jpg" alt="">
+            <p>荣耀20青春版 AMOLED屏幕指纹 4000mAh大电池 20W快充 4800万</p>
+            <span class="price">1199.00</span>
+            <em class="addCart">加入购物车</em>
+        </div>
+        <div class="list" index='3535434'>
+            <img src="./new.jpg/手机2.jpg" alt="">
+            <p>荣耀9X 麒麟810 4000mAh续航 4800万超清夜拍 6.59英寸升降全面屏 全网通6GB+64GB 魅海蓝</p>
+            <span class="price">1199.00</span>
+            <em class="addCart">加入购物车</em>
+        </div>
+        <div class="list" index='5757576'>
+            <img src="./new.jpg/手机3.jpg" alt="">
+            <p>Redmi K30 王一博同款 120Hz流速屏 前置挖孔双摄 6GB+128GB 深海微光 游戏智能</p>
+            <span class="price">1599.00</span>
+            <em class="addCart">加入购物车</em>
+        </div>
+        <div class="list" index='234234234'>
+            <img src="./new.jpg/手机4.jpg" alt="">
+            <p>Apple iPhone SE (A2298) 64GB 黑色 移动联通电信4G</p>
+            <span class="price">3999.00</span>
+            <em class="addCart">加入购物车</em>
+        </div>
+    </div>
+</body>
+<script src="data.js"></script>
+<script src="./jquery-1.12.4.js"></script>
+<script>
+    console.log(goods);
+    // 数组方法大全
+    https://www.jianshu.com/p/7e160067a06c
+
+    // class List{
+    //     constructor(){
+    //         this.cont = document.getElementById("box");
+    //         // 1.模拟获取数据
+    //         this.getData();
+            
+    //         // 2.数据获取成功之后，渲染页面
+    //         this.display();
+    //         // 4.绑定事件
+    //         this.addEvent()
+    //     }
+    //     getData(){
+    //         // 获取数据
+    //         this.data = goods;
+           
+    //             // $.get('./interface/addwq.php',{
+               
+    //             // })
+        
+
+    //     }
+    //     display(){
+    //         var str = "";
+    //         // 遍历数据
+    //         this.data.forEach(item => {
+    //             // console.log(item);
+    //             // 拼接结构
+    //             str += `<div class="list" index="${item.goodsId}">
+    //                         <img src="${item.img}" alt="">
+    //                         <p>${item.name}</p>
+    //                         <span>${item.price}</span>
+    //                         <em class="addCar">加入购物车</em>
+    //                     </div>`;
+    //         });
+    //         // 3.填充页面
+    //         this.cont.innerHTML = str;
+    //     }
+    //     addEvent(){
+    //         var that = this;
+    //         // 因为页面结构都是根据数据渲染，初始没有按钮，所以采取事件委托绑定事件
+    //         this.cont.onclick = function(eve){
+    //             var e = eve || window.event;
+    //             var tar = e.target || e.srcElement;
+    //             if(tar.className === "addCar"){
+    //                 // 5. 获取点击的商品对应的id
+    //                 that.id = tar.parentNode.getAttribute("index");
+    //                 // 6. 存储数据
+    //                 that.setLocal();
+    //             }
+    //         }
+    //     }
+    //     setLocal(){
+    //         // 预测：
+    //             // 如果需要加入购物车的数据，会在localstorage中存储一个goods的数据
+    //             // 如果之前没有存，为null
+    //             // 如果之前存过，准备存json数据：[{id:123,num:2},{...},...];
+
+    //         // 先读，根据预测的数据格式，提前预解析
+    //         this.arr = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
+
+    //         // 从来没有加入过购物车：空数组
+    //         if(this.arr.length < 1){
+    //             // 直接加
+    //             this.arr.push({
+    //                 id:this.id,
+    //                 num:1
+    //             })
+    //         }else{
+    //             // 预处理：
+    //                 // 怎么知道是新商 品还是老商品？
+    //                 // 判断id是否存在
+    //                 // 在所有商品中，判断所有商品id，是否重复
+
+    //             // 使用some判断数组中是否存在老数据
+    //             var onoff = this.arr.some(item=>{
+    //                 if(item.id == this.id){
+    //                     item.num++;
+    //                     return true;
+    //                 }   
+    //             })
+                
+    //             // 循环结束后判断状态是否被改变，没有被改变，说明没有找到重复数据
+    //             if(onoff === false){
+    //                 // 本次加入的是新商品，直接添加
+    //                 this.arr.push({
+    //                     id:this.id,
+    //                     num:1
+    //                 })
+    //             }
+    //         }
+    //         // 以上操作的都不是本地存储中的数据，仅仅是假设
+    //         // 操作结束后，把假设变成真的
+    //         // 存到localstorage中，才是真的
+    //         localStorage.setItem("goods",JSON.stringify(this.arr));
+    //     }
+    // }
+    // new List;
+// console.log($('.addCar'))
+    $('.addCart').click(function(){
+        $price = $(this).siblings('.price').text()
+        // console.log($price)
+        $id = $(this).parent().attr('index')
+        // console.log($id)
+        $name = $(this).siblings('p').text()
+        // console.log( $name)
+        $img = $(this).siblings('img').attr('src')
+        
+       
+       
+        $.get('./interface/addwq.php',{
+        id:$id,
+        img:$img,
+        name:$name,
+        price:$price },
+        function(data){
+            console.log(data)
+            var json =JSON.parse(data)
+            if(json.code==1){
+                alert('添加商品成功');
+            }
+        }
+        )     
+    })
+
+</script>
+</html>
